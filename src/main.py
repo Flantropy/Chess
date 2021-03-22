@@ -29,6 +29,7 @@ wp = Player("w", layer=layer_pieces, board=board)
 bp = Player("b", layer=layer_pieces, board=board)
 current_player = wp
 selected_piece = None
+start_cell = None
 
 # Init surfaces
 display.blit(background, (0, 0))
@@ -49,16 +50,18 @@ while True:
 					if cell.piece:
 						if cell.piece.color == current_player.side:
 							cell.is_selected = True
-							print(f"u can move with your {cell.piece.name}:{cell}")
 							selected_piece = cell.piece
-							cell.piece.visible = False
 							cell.piece = None
+							start_cell = cell
 							break
 					if selected_piece:
+						if cell.piece and (cell.piece.color != current_player.side):
+							print("capture")
+						selected_piece.rect.center = cell.rect.center
 						cell.piece = selected_piece
-						layer_pieces.add(selected_piece)
-						print(f"here {selected_piece.name}")
+						print(f"{current_player.side} move {selected_piece.name} {start_cell} to {cell}")
 						selected_piece = None
+						# current_player = wp if current_player == bp else bp
 
 	# Update
 	layer_board.update()
