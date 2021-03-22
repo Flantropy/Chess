@@ -1,4 +1,5 @@
-from pygame import sprite, image, transform
+from pygame import image, sprite, transform
+
 from constants import LARGE_TILE_SIZE
 
 
@@ -9,14 +10,21 @@ class BasePiece(sprite.Sprite):
 		self.image = transform.scale(self.image, LARGE_TILE_SIZE)
 		self.rect = self.image.get_rect()
 		self.rect.center = pos
-		# self.center = self.rect.center
-		# self.x, self.y = pos
 		self.layer = layer
-		self.visible = False
+		self.visible = True
+		self.color = color
+		self.name = name
 		self.add_to_layer(layer)
 	
 	def add_to_layer(self, layer):
 		layer.add(self)
-		
+	
+	def is_move_possible(self):
+		return True
+	
 	def update(self, *args, **kwargs):
-		print("update")
+		if self.visible:
+			pass
+		else:
+			self.remove(self.layer)
+			print(f"remove {self.name}:{self.rect.center}")

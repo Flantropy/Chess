@@ -31,6 +31,7 @@ class Player:
 				pos=self._find_pos(board, pos),
 				color=self.side
 			)
+			board.add_piece(pos=pos, piece=piece_obj)
 			layer.add(piece_obj)
 	
 	@staticmethod

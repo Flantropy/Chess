@@ -27,6 +27,8 @@ for cell in board.grid:
 # Players
 wp = Player("w", layer=layer_pieces, board=board)
 bp = Player("b", layer=layer_pieces, board=board)
+current_player = wp
+selected_piece = None
 
 # Init surfaces
 display.blit(background, (0, 0))
@@ -44,10 +46,23 @@ while True:
 			x, y = event.pos
 			for cell in board.grid:
 				if cell.rect.collidepoint(x, y):
-					cell.is_selected = True
-	
+					if cell.piece:
+						if cell.piece.color == current_player.side:
+							cell.is_selected = True
+							print(f"u can move with your {cell.piece.name}:{cell}")
+							selected_piece = cell.piece
+							cell.piece.visible = False
+							cell.piece = None
+							break
+					if selected_piece:
+						cell.piece = selected_piece
+						layer_pieces.add(selected_piece)
+						print(f"here {selected_piece.name}")
+						selected_piece = None
+
 	# Update
 	layer_board.update()
+	layer_pieces.update()
 	
 	# Draw
 	layer_board.draw(display)

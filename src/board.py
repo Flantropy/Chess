@@ -22,3 +22,8 @@ class Board(Cell):
 	def clear_selection(self):
 		for cell in self.grid:
 			cell.is_selected = False
+			
+	def add_piece(self, pos, piece):
+		for cell in self.grid:
+			if (cell.col, cell.row) == pos:
+				cell.piece = piece
