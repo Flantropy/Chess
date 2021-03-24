@@ -19,7 +19,12 @@ class BasePiece(sprite.Sprite):
 	def add_to_layer(self, layer):
 		layer.add(self)
 	
-	def is_move_possible(self):
+	def move(self, start, end, player):
+		# print(start, end, player.side)
+		if start == end:
+			print("Not today")
+			return False
+		
 		return True
 	
 	def update(self, *args, **kwargs):

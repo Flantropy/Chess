@@ -51,18 +51,23 @@ while True:
 						if cell.piece.color == current_player.side:
 							cell.is_selected = True
 							selected_piece = cell.piece
-							cell.piece = None
+							# cell.piece = None
 							start_cell = cell
 							break
 					if selected_piece:
-						if cell.piece and (cell.piece.color != current_player.side):
-							print("capture")
-						selected_piece.rect.center = cell.rect.center
-						cell.piece = selected_piece
-						print(f"{current_player.side} move {selected_piece.name} {start_cell} to {cell}")
-						selected_piece = None
-						# current_player = wp if current_player == bp else bp
-
+						if selected_piece.move(start_cell, cell, current_player):
+							if cell.piece and (cell.piece.color != current_player.side):
+								print("capture")
+								cell.piece.kill()
+							selected_piece.rect.center = cell.rect.center
+							cell.piece = selected_piece
+							# print(f"{current_player.side} move {selected_piece.name} {start_cell} to {cell}")
+							selected_piece = None
+							start_cell.piece = None
+							current_player = wp if current_player == bp else bp
+						else:
+							selected_piece = None
+							
 	# Update
 	layer_board.update()
 	layer_pieces.update()
