@@ -51,7 +51,6 @@ while True:
 						if cell.piece.color == current_player.side:
 							cell.is_selected = True
 							selected_piece = cell.piece
-							# cell.piece = None
 							start_cell = cell
 							break
 					if selected_piece:
@@ -61,7 +60,6 @@ while True:
 								cell.piece.kill()
 							selected_piece.rect.center = cell.rect.center
 							cell.piece = selected_piece
-							# print(f"{current_player.side} move {selected_piece.name} {start_cell} to {cell}")
 							selected_piece = None
 							start_cell.piece = None
 							current_player = wp if current_player == bp else bp

@@ -20,11 +20,9 @@ class BasePiece(sprite.Sprite):
 		layer.add(self)
 	
 	def move(self, start, end, player):
-		# print(start, end, player.side)
 		if start == end:
 			print("Not today")
 			return False
-		
 		return True
 	
 	def update(self, *args, **kwargs):
