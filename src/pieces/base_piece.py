@@ -1,33 +1,62 @@
-from pygame import image, sprite, transform
-
-from constants import LARGE_TILE_SIZE
+from pygame import sprite, image, transform
 
 
-class BasePiece(sprite.Sprite):
-	def __init__(self, layer, pos=(0, 0), name="pawn", color="w"):
-		super(BasePiece, self).__init__()
-		self.image = image.load("images/" + color + "_" + name + ".png").convert_alpha()
-		self.image = transform.scale(self.image, LARGE_TILE_SIZE)
-		self.rect = self.image.get_rect()
-		self.rect.center = pos
-		self.layer = layer
-		self.visible = True
-		self.color = color
+class Piece(sprite.Sprite):
+	def __init__(self, name, position=(0, 0), color="w", coordinates=(0, 0)):
+		super().__init__()
 		self.name = name
-		self.add_to_layer(layer)
+		self.color = color
+		self.position = position
+		self.row, self.col = self.position
+		self.list_of_moves = []
+		self.image = image.load("images/" + self.color + "_" + self.name + ".png").convert_alpha()
+		self.image = transform.scale(self.image, (32, 32))
+		self.rect = self.image.get_rect()
+		self.rect.center = coordinates
 	
-	def add_to_layer(self, layer):
-		layer.add(self)
+	def draw(self, display):
+		display.blit(self.image, self.rect)
 	
-	def move(self, start, end, player):
-		if start == end:
-			print("Not today")
-			return False
-		return True
+	def __str__(self):
+		return self.name
 	
-	def update(self, *args, **kwargs):
-		if self.visible:
-			pass
-		else:
-			self.remove(self.layer)
-			print(f"remove {self.name}:{self.rect.center}")
+	def move(self, end_cell):
+		return True if end_cell in self.list_of_moves else False
+	
+	def get_moves_list(self, board):
+		pass
+	
+	def add_diagonal_moves(self, board):
+		pass
+	
+	def add_horizontal_moves(self, board):
+		self.add_line_of_moves(board, self.col, -1, mode="h")
+		self.add_line_of_moves(board, self.col, 1, mode="h")
+	
+	# for col in range(self.col + 1, 8):
+	# 	cell = board[self.row][col]
+	# 	# if not isinstance(cell, Piece):
+	# 	# 	self.list_of_moves.append((self.row, col))
+	# 	# elif cell.color != self.color:
+	# 	# 	self.list_of_moves.append((self.row, col))
+	# 	# 	break
+	# 	# else:
+	# 	# 	break
+	
+	def add_vertical_moves(self, board):
+		self.add_line_of_moves(board, self.col, -1, mode="v")
+		self.add_line_of_moves(board, self.col, 1, mode="v")
+	
+	def add_line_of_moves(self, board, start, shift, mode):
+		end = 8 if shift == 1 else -1
+		
+		for i in range(start + shift, end, shift):
+			cell = board[self.row][i] if mode == "h" else board[i][self.col]
+			add = (self.row, i) if mode == "h" else (i, self.col)
+			if not isinstance(cell, Piece):
+				self.list_of_moves.append(add)
+			elif cell.color != self.color:
+				self.list_of_moves.append(add)  # ((self.row, i))
+				break
+			else:
+				break
