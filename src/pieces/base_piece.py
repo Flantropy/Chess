@@ -33,16 +33,6 @@ class Piece(sprite.Sprite):
 		self.add_line_of_moves(board, self.col, -1, mode="h")
 		self.add_line_of_moves(board, self.col, 1, mode="h")
 	
-	# for col in range(self.col + 1, 8):
-	# 	cell = board[self.row][col]
-	# 	# if not isinstance(cell, Piece):
-	# 	# 	self.list_of_moves.append((self.row, col))
-	# 	# elif cell.color != self.color:
-	# 	# 	self.list_of_moves.append((self.row, col))
-	# 	# 	break
-	# 	# else:
-	# 	# 	break
-	
 	def add_vertical_moves(self, board):
 		self.add_line_of_moves(board, self.col, -1, mode="v")
 		self.add_line_of_moves(board, self.col, 1, mode="v")

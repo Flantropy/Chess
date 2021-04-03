@@ -1,6 +1,6 @@
-from pieces.base_piece import BasePiece
+from pieces.base_piece import Piece
 
 
-class King(BasePiece):
-	def __init__(self, layer, pos, color):
-		super(King, self).__init__(layer=layer, pos=pos, name="king", color=color)
+class King(Piece):
+	def __init__(self, position=(0, 0), color="w", coordinates=(0, 0)):
+		super().__init__(name="king", position=position, color=color, coordinates=coordinates)

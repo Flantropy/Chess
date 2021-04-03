@@ -1,13 +1,46 @@
+from src.pieces.pawn import Pawn
+from src.pieces.rook import Rook
+from pieces.king import King
+from pieces.queen import Queen
+from pieces.bishop import Bishop
+from pieces.knight import Knight
+
+
+BASE_PIECES = {
+	(0, 6, "w"): Pawn, (0, 7, "w"): Rook,
+	(1, 6, "w"): Pawn, (1, 7, "w"): Knight,
+	(2, 6, "w"): Pawn, (2, 7, "w"): Bishop,
+	(3, 6, "w"): Pawn, (3, 7, "w"): Queen,
+	(4, 6, "w"): Pawn, (4, 7, "w"): King,
+	(5, 6, "w"): Pawn, (5, 7, "w"): Bishop,
+	(6, 6, "w"): Pawn, (6, 7, "w"): Knight,
+	(7, 6, "w"): Pawn, (7, 7, "w"): Rook,
+	
+	(0, 1, "b"): Pawn, (0, 0, "b"): Rook,
+	(1, 1, "b"): Pawn, (1, 0, "b"): Knight,
+	(2, 1, "b"): Pawn, (2, 0, "b"): Bishop,
+	(3, 1, "b"): Pawn, (3, 0, "b"): Queen,
+	(4, 1, "b"): Pawn, (4, 0, "b"): King,
+	(5, 1, "b"): Pawn, (5, 0, "b"): Bishop,
+	(6, 1, "b"): Pawn, (6, 0, "b"): Knight,
+	(7, 1, "b"): Pawn, (7, 0, "b"): Rook
+
+}
+
 # SCALING AND FPS
 FULL_SCREEN = 0
 SCALE = 1
 FPS = 10
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+CELL_W = 50
+CELL_H = 50
+CELL_SIZE = (CELL_W, CELL_H)
+BOARD_W = 8
+BOARD_H = 8
+BOARD_SIZE = (BOARD_W, BOARD_H)
 
 # DISPLAY INFORMATION
-NATIVE_WIDTH = 600
-NATIVE_HEIGHT = 400
+NATIVE_WIDTH = 800
+NATIVE_HEIGHT = 600
 NATIVE_SIZE = (NATIVE_WIDTH, NATIVE_HEIGHT)
 NATIVE_WIDTH_CENTER = NATIVE_WIDTH // 2
 NATIVE_HEIGHT_CENTER = NATIVE_HEIGHT // 2
@@ -44,49 +77,8 @@ DISPLAY_BOTTOM_CENTER = (DISPLAY_WIDTH_CENTER, DISPLAY_HEIGHT)
 DISPLAY_BOTTOM_LIFT = (DISPLAY_LEFT, DISPLAY_HEIGHT)
 DISPLAY_LEFT_CENTER = (DISPLAY_LEFT, DISPLAY_HEIGHT_CENTER)
 
-# GAME STATE INFORMATION
-SPLASH_SCREEN = "SPLASH_SCREEN"
-MAIN_MENU = "MAIN_MENU"
-CHARACTER_SELECT = "CHARACTER_SELECT"
-LEVEL = "LEVEL"
-GAME_STATES = [
-	SPLASH_SCREEN,
-	MAIN_MENU,
-	CHARACTER_SELECT,
-	LEVEL]
-
-STARTING_STATE = GAME_STATES[0]
-
-# TILE INFORMATION
-SMALL_TILE_SIZE = (8, 8)
-MEDIUM_TILE_SIZE = (16, 16)
-LARGE_TILE_SIZE = (int(32 * SCALE), int(32 * SCALE))
-
-# DIRECTORY INFORMATION (work only with windows)
-DIR_FONTS = "\\fonts\\"
-DIR_IMAGES = "\\images\\"
-DIR_MUSIC = "\\music\\"
-DIR_SOUNDS = "\\sounds\\"
-
-# NOTATION AND PIECES
-
-COLS_AS_STR = "ABCDEFGH"
-
-PIECES = {
-	("A", 2): "Pawn",
-	("B", 2): "Pawn",
-	("C", 2): "Pawn",
-	("D", 2): "Pawn",
-	("E", 2): "Pawn",
-	("F", 2): "Pawn",
-	("G", 2): "Pawn",
-	("H", 2): "Pawn",
-	("A", 1): "Rook",
-	("B", 1): "Knight",
-	("C", 1): "Bishop",
-	("D", 1): "Queen",
-	("E", 1): "King",
-	("F", 1): "Bishop",
-	("G", 1): "Knight",
-	("H", 1): "Rook"
-}
+# Board position
+BOARD_TOP_RIGHT = (
+	DISPLAY_WIDTH_CENTER - int(BOARD_W/2 * CELL_W),
+	DISPLAY_HEIGHT_CENTER - int(BOARD_H/2 * CELL_H)
+)
