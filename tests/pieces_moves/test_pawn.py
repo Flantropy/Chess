@@ -5,7 +5,7 @@ from src.pieces.pawn import Pawn
 @fixture
 def board():
 	pieces = {
-		(1, 0, "w"): Pawn
+		(1, 0, "tr_pos"): Pawn
 	}
 	new_board = Board(pieces=pieces)
 	return new_board
@@ -33,7 +33,7 @@ def test_pawn_move_too_long(board):
 
 def test_pawn_move_from_base_over_piece():
 	pieces = {
-		(1, 0, "w"): Pawn,
+		(1, 0, "tr_pos"): Pawn,
 		(2, 0, "b"): Pawn
 	}
 	new_board = Board(pieces=pieces)
@@ -48,7 +48,7 @@ def test_pawn_move_left(board):
 
 def test_pawn_capture():
 	pieces = {
-		(1, 1, "w"): Pawn,
+		(1, 1, "tr_pos"): Pawn,
 		(2, 2, "b"): Pawn
 	}
 	new_board = Board(pieces=pieces)
@@ -58,7 +58,7 @@ def test_pawn_capture():
 
 def test_pawn_capture_backwards():
 	pieces = {
-		(1, 1, "w"): Pawn,
+		(1, 1, "tr_pos"): Pawn,
 		(0, 0, "b"): Pawn
 	}
 	new_board = Board(pieces=pieces)

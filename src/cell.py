@@ -1,12 +1,15 @@
-# item of Board.grid[]
 from pygame import sprite, Surface
 from res.constants import CELL_SIZE
-from res.ultracolors import WHITE
+from res.ultracolors import LIGHT_BLUE_1
 
 
 class Cell(sprite.Sprite):
-	def __init__(self, pos=(0, 0), color=WHITE):
+	"""
+	This class is item of Board.grid
+	"""
+	def __init__(self, color, notation, pos=(0, 0)):
 		super(Cell, self).__init__()
+		self.row, self.col = notation
 		self.color = color
 		self.image = Surface(CELL_SIZE)
 		self.image.fill(self.color)
@@ -23,6 +26,7 @@ class Cell(sprite.Sprite):
 
 	def update(self, *args, **kwargs):
 		if self.selected:
-			self.image.fill((0, 255, 0))
+			self.image.fill(LIGHT_BLUE_1)
+			
 		else:
 			self.image.fill(self.color)

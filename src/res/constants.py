@@ -16,27 +16,21 @@ BASE_PIECES = {
 	(6, 6, "w"): Pawn, (6, 7, "w"): Knight,
 	(7, 6, "w"): Pawn, (7, 7, "w"): Rook,
 	
-	(0, 1, "b"): Pawn, (0, 0, "b"): Rook,
-	(1, 1, "b"): Pawn, (1, 0, "b"): Knight,
-	(2, 1, "b"): Pawn, (2, 0, "b"): Bishop,
-	(3, 1, "b"): Pawn, (3, 0, "b"): Queen,
-	(4, 1, "b"): Pawn, (4, 0, "b"): King,
-	(5, 1, "b"): Pawn, (5, 0, "b"): Bishop,
-	(6, 1, "b"): Pawn, (6, 0, "b"): Knight,
-	(7, 1, "b"): Pawn, (7, 0, "b"): Rook
-
+	(0, 1, "b"):      Pawn, (0, 0, "b"): Rook,
+	(1, 1, "b"):      Pawn, (1, 0, "b"): Knight,
+	(2, 1, "b"):      Pawn, (2, 0, "b"): Bishop,
+	(3, 1, "b"):      Pawn, (3, 0, "b"): Queen,
+	(4, 1, "b"):      Pawn, (4, 0, "b"): King,
+	(5, 1, "b"):      Pawn, (5, 0, "b"): Bishop,
+	(6, 1, "b"):      Pawn, (6, 0, "b"): Knight,
+	(7, 1, "b"):      Pawn, (7, 0, "b"): Rook
+	
 }
 
 # SCALING AND FPS
 FULL_SCREEN = 0
 SCALE = 1
 FPS = 10
-CELL_W = 50
-CELL_H = 50
-CELL_SIZE = (CELL_W, CELL_H)
-BOARD_W = 8
-BOARD_H = 8
-BOARD_SIZE = (BOARD_W, BOARD_H)
 
 # DISPLAY INFORMATION
 NATIVE_WIDTH = 800
@@ -77,8 +71,15 @@ DISPLAY_BOTTOM_CENTER = (DISPLAY_WIDTH_CENTER, DISPLAY_HEIGHT)
 DISPLAY_BOTTOM_LIFT = (DISPLAY_LEFT, DISPLAY_HEIGHT)
 DISPLAY_LEFT_CENTER = (DISPLAY_LEFT, DISPLAY_HEIGHT_CENTER)
 
-# Board position
+# BOARD
+CELL_W = 50
+CELL_H = 50
+CELL_SIZE = (CELL_W, CELL_H)
+BOARD_W = 8
+BOARD_H = 8
+BOARD_SIZE = (BOARD_W, BOARD_H)
+
 BOARD_TOP_RIGHT = (
-	DISPLAY_WIDTH_CENTER - int(BOARD_W/2 * CELL_W),
-	DISPLAY_HEIGHT_CENTER - int(BOARD_H/2 * CELL_H)
+	DISPLAY_WIDTH_CENTER - int(BOARD_W / 2 * CELL_W),
+	DISPLAY_HEIGHT_CENTER - int(BOARD_H / 2 * CELL_H)
 )

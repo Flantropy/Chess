@@ -2,7 +2,7 @@ from pygame import sprite, image, transform
 
 
 class Piece(sprite.Sprite):
-	def __init__(self, name, position=(0, 0), color="w", coordinates=(0, 0)):
+	def __init__(self, name, position=(0, 0), color="tr_pos", coordinates=(0, 0)):
 		super().__init__()
 		self.name = name
 		self.color = color
@@ -13,7 +13,8 @@ class Piece(sprite.Sprite):
 		self.image = transform.scale(self.image, (32, 32))
 		self.rect = self.image.get_rect()
 		self.rect.center = coordinates
-	
+		self.move_offsets = ()
+		
 	def draw(self, display):
 		display.blit(self.image, self.rect)
 	
@@ -24,29 +25,19 @@ class Piece(sprite.Sprite):
 		return True if end_cell in self.list_of_moves else False
 	
 	def get_moves_list(self, board):
-		pass
-	
-	def add_diagonal_moves(self, board):
-		pass
-	
-	def add_horizontal_moves(self, board):
-		self.add_line_of_moves(board, self.col, -1, mode="h")
-		self.add_line_of_moves(board, self.col, 1, mode="h")
-	
-	def add_vertical_moves(self, board):
-		self.add_line_of_moves(board, self.col, -1, mode="v")
-		self.add_line_of_moves(board, self.col, 1, mode="v")
-	
-	def add_line_of_moves(self, board, start, shift, mode):
-		end = 8 if shift == 1 else -1
+		self.list_of_moves.clear()
+		for offset in self.move_offsets:
+			self.add_moves_by_offset(board, offset)
+
+	def add_moves_by_offset(self, board, offset):
+		row_shift, col_shift = offset
+		new_row = self.row + row_shift
+		new_row = min(new_row, 7) if row_shift > 0 else max(new_row, 0)
+		new_col = self.col + col_shift
+		new_col = min(new_col, 7) if col_shift > 0 else max(new_col, 0)
 		
-		for i in range(start + shift, end, shift):
-			cell = board[self.row][i] if mode == "h" else board[i][self.col]
-			add = (self.row, i) if mode == "h" else (i, self.col)
-			if not isinstance(cell, Piece):
-				self.list_of_moves.append(add)
-			elif cell.color != self.color:
-				self.list_of_moves.append(add)  # ((self.row, i))
-				break
-			else:
-				break
+		try:
+			if new_col + new_row != self.row + self.col:
+				print(board[new_row][new_col].piece.name)
+		except:
+			pass

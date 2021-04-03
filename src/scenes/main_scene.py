@@ -10,8 +10,9 @@ from pieces.queen import Queen
 from pieces.bishop import Bishop
 from pieces.knight import Knight
 
+
 pieces = {
-	(4, 4, "w"): Pawn
+	(6, 5, "w"): Bishop
 }
 
 
@@ -37,7 +38,6 @@ class MainScene:
 							cell.selected = True
 							if cell.piece:
 								cell.piece.get_moves_list(self.board.grid)
-								print(cell.piece.row, cell.piece.col)
 								for pos in cell.piece.list_of_moves:
 									x, y = pos
 									self.board.grid[x][y].selected = True
