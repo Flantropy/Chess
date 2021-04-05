@@ -5,26 +5,24 @@ from pieces.queen import Queen
 from pieces.bishop import Bishop
 from pieces.knight import Knight
 
-
 BASE_PIECES = {
-	(0, 6, "w"): Pawn, (0, 7, "w"): Rook,
-	(1, 6, "w"): Pawn, (1, 7, "w"): Knight,
-	(2, 6, "w"): Pawn, (2, 7, "w"): Bishop,
-	(3, 6, "w"): Pawn, (3, 7, "w"): Queen,
-	(4, 6, "w"): Pawn, (4, 7, "w"): King,
-	(5, 6, "w"): Pawn, (5, 7, "w"): Bishop,
-	(6, 6, "w"): Pawn, (6, 7, "w"): Knight,
-	(7, 6, "w"): Pawn, (7, 7, "w"): Rook,
+	(6, 0, "w"): Pawn, (7, 0, "w"): Rook,
+	(6, 1, "w"): Pawn, (7, 1, "w"): Knight,
+	(6, 2, "w"): Pawn, (7, 2, "w"): Bishop,
+	(6, 3, "w"): Pawn, (7, 3, "w"): Queen,
+	(6, 4, "w"): Pawn, (7, 4, "w"): King,
+	(6, 5, "w"): Pawn, (7, 5, "w"): Bishop,
+	(6, 6, "w"): Pawn, (7, 6, "w"): Knight,
+	(6, 7, "w"): Pawn, (7, 7, "w"): Rook,
 	
-	(0, 1, "b"):      Pawn, (0, 0, "b"): Rook,
-	(1, 1, "b"):      Pawn, (1, 0, "b"): Knight,
-	(2, 1, "b"):      Pawn, (2, 0, "b"): Bishop,
-	(3, 1, "b"):      Pawn, (3, 0, "b"): Queen,
-	(4, 1, "b"):      Pawn, (4, 0, "b"): King,
-	(5, 1, "b"):      Pawn, (5, 0, "b"): Bishop,
-	(6, 1, "b"):      Pawn, (6, 0, "b"): Knight,
-	(7, 1, "b"):      Pawn, (7, 0, "b"): Rook
-	
+	(1, 0, "b"): Pawn, (0, 0, "b"): Rook,
+	(1, 1, "b"): Pawn, (0, 1, "b"): Knight,
+	(1, 2, "b"): Pawn, (0, 2, "b"): Bishop,
+	(1, 3, "b"): Pawn, (0, 3, "b"): Queen,
+	(1, 4, "b"): Pawn, (0, 4, "b"): King,
+	(1, 5, "b"): Pawn, (0, 5, "b"): Bishop,
+	(1, 6, "b"): Pawn, (0, 6, "b"): Knight,
+	(1, 7, "b"): Pawn, (0, 7, "b"): Rook
 }
 
 # SCALING AND FPS
@@ -33,8 +31,8 @@ SCALE = 1
 FPS = 10
 
 # DISPLAY INFORMATION
-NATIVE_WIDTH = 800
-NATIVE_HEIGHT = 600
+NATIVE_WIDTH = 360
+NATIVE_HEIGHT = 360
 NATIVE_SIZE = (NATIVE_WIDTH, NATIVE_HEIGHT)
 NATIVE_WIDTH_CENTER = NATIVE_WIDTH // 2
 NATIVE_HEIGHT_CENTER = NATIVE_HEIGHT // 2
@@ -72,14 +70,23 @@ DISPLAY_BOTTOM_LIFT = (DISPLAY_LEFT, DISPLAY_HEIGHT)
 DISPLAY_LEFT_CENTER = (DISPLAY_LEFT, DISPLAY_HEIGHT_CENTER)
 
 # BOARD
-CELL_W = 50
-CELL_H = 50
-CELL_SIZE = (CELL_W, CELL_H)
 BOARD_W = 8
 BOARD_H = 8
+CELL_W = DISPLAY_WIDTH // BOARD_W
+CELL_H = DISPLAY_HEIGHT // BOARD_H
+CELL_SIZE = (CELL_W, CELL_H)
 BOARD_SIZE = (BOARD_W, BOARD_H)
 
 BOARD_TOP_RIGHT = (
 	DISPLAY_WIDTH_CENTER - int(BOARD_W / 2 * CELL_W),
 	DISPLAY_HEIGHT_CENTER - int(BOARD_H / 2 * CELL_H)
 )
+
+
+def notation_to_index(row, col):
+	return row * 8 + col
+
+
+TEST_PIECES = {
+	(4, 4, "w"): Bishop
+}

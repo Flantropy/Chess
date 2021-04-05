@@ -1,19 +1,12 @@
 import pygame as pg
-from pygame.locals import *
-from res.constants import *
-from sys import exit
-from src.board import Board
-from src.pieces.pawn import Pawn
-from src.pieces.rook import Rook
-from pieces.king import King
-from pieces.queen import Queen
-from pieces.bishop import Bishop
-from pieces.knight import Knight
-
-
-pieces = {
-	(6, 5, "w"): Bishop
-}
+from res.constants import (
+	FPS,
+	DISPLAY_SIZE,
+	BOARD_TOP_RIGHT,
+	TEST_PIECES
+)
+from classes.board import Board
+from classes.event_handler import EventHandler
 
 
 class MainScene:
@@ -21,36 +14,42 @@ class MainScene:
 		pg.init()
 		self.display = pg.display.set_mode(DISPLAY_SIZE)
 		self.clock = pg.time.Clock()
-		self.board = Board(pos=BOARD_TOP_RIGHT)
+		self.board = Board(pos=BOARD_TOP_RIGHT, pieces=TEST_PIECES)
+		self.event_handler = EventHandler()
+		self.layer_cells = pg.sprite.Group()
+		self.layer_pieces = pg.sprite.Group()
+		self.layers = [
+			self.layer_cells,
+			self.layer_pieces
+		]
+		self.update_layers()
+	
+	def update(self):
+		for layer in self.layers:
+			layer.update()
+	
+	def render(self):
+		for layer in self.layers:
+			layer.draw(self.display)
+		pg.display.update()
+	
+	def update_layers(self):
+		"""
+		Has to be called before using self.layers
+		"""
+		for cell in self.board.grid:
+			self.layer_cells.add(cell)
+			if cell.piece:
+				self.layer_pieces.add(cell.piece)
 	
 	def run(self):
 		while True:
-			# Handle events
-			for event in pg.event.get():
-				if event.type == QUIT:
-					pg.quit()
-					exit()
-				if event.type == pg.MOUSEBUTTONDOWN:
-					self.board.clear_selection()
-					x, y = pg.mouse.get_pos()
-					for cell in self.board.grid.flat:
-						if cell.rect.collidepoint(x, y):
-							cell.selected = True
-							if cell.piece:
-								cell.piece.get_moves_list(self.board.grid)
-								for pos in cell.piece.list_of_moves:
-									x, y = pos
-									self.board.grid[x][y].selected = True
-								
-			# Update State
-			for cell in self.board.grid.flat:
-				cell.draw(self.display)
-				cell.update()
-				if cell.piece:
-					cell.piece.draw(self.display)
+			#  HANDLE EVENTS
+			self.event_handler.handle_events(self.board)
 			
-			# Update Display
-			pg.display.update()
+			# UPDATE AND RENDER
+			self.update()
+			self.render()
 			
-			# Tick
+			# TICK
 			self.clock.tick(FPS)

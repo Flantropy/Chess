@@ -2,19 +2,19 @@ from pygame import sprite, image, transform
 
 
 class Piece(sprite.Sprite):
-	def __init__(self, name, position=(0, 0), color="tr_pos", coordinates=(0, 0)):
+	def __init__(self, name, position=(0, 0), color="w", coordinates=(0, 0)):
 		super().__init__()
 		self.name = name
 		self.color = color
 		self.position = position
 		self.row, self.col = self.position
-		self.list_of_moves = []
+		self.list_of_moves = [(5, 5)]
 		self.image = image.load("images/" + self.color + "_" + self.name + ".png").convert_alpha()
 		self.image = transform.scale(self.image, (32, 32))
 		self.rect = self.image.get_rect()
 		self.rect.center = coordinates
-		self.move_offsets = ()
-		
+		self.move_offsets = [(0, 0)]
+	
 	def draw(self, display):
 		display.blit(self.image, self.rect)
 	
@@ -28,7 +28,7 @@ class Piece(sprite.Sprite):
 		self.list_of_moves.clear()
 		for offset in self.move_offsets:
 			self.add_moves_by_offset(board, offset)
-
+	
 	def add_moves_by_offset(self, board, offset):
 		row_shift, col_shift = offset
 		new_row = self.row + row_shift
@@ -36,8 +36,4 @@ class Piece(sprite.Sprite):
 		new_col = self.col + col_shift
 		new_col = min(new_col, 7) if col_shift > 0 else max(new_col, 0)
 		
-		try:
-			if new_col + new_row != self.row + self.col:
-				print(board[new_row][new_col].piece.name)
-		except:
-			pass
+		self.list_of_moves.append((new_row, new_col))
