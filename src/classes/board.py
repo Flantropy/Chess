@@ -53,7 +53,4 @@ class Board:
 	
 	def add_selection(self, moves: list):
 		for move in moves:
-			row, col = move
-			grid_index = notation_to_index(row, col)
-			self.grid[grid_index].selected = True
-			# print(row, col)
+			self.grid[move].selected = True

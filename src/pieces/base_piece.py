@@ -8,12 +8,12 @@ class Piece(sprite.Sprite):
 		self.color = color
 		self.position = position
 		self.row, self.col = self.position
-		self.list_of_moves = [(5, 5)]
+		self.list_of_moves = []
 		self.image = image.load("images/" + self.color + "_" + self.name + ".png").convert_alpha()
 		self.image = transform.scale(self.image, (32, 32))
 		self.rect = self.image.get_rect()
 		self.rect.center = coordinates
-		self.move_offsets = [(0, 0)]
+		self.grid_index = self.row * 8 + self.col
 	
 	def draw(self, display):
 		display.blit(self.image, self.rect)
@@ -26,14 +26,17 @@ class Piece(sprite.Sprite):
 	
 	def get_moves_list(self, board):
 		self.list_of_moves.clear()
-		for offset in self.move_offsets:
-			self.add_moves_by_offset(board, offset)
-	
-	def add_moves_by_offset(self, board, offset):
-		row_shift, col_shift = offset
-		new_row = self.row + row_shift
-		new_row = min(new_row, 7) if row_shift > 0 else max(new_row, 0)
-		new_col = self.col + col_shift
-		new_col = min(new_col, 7) if col_shift > 0 else max(new_col, 0)
 		
-		self.list_of_moves.append((new_row, new_col))
+	def add_move(self, index, board):
+		if not board[index].piece:
+			self.list_of_moves.append(index)
+		elif board[index].piece.color != self.color:
+			self.list_of_moves.append(index)
+			return False
+		return True
+	
+	@staticmethod
+	def from_index_to_notation(index):
+		row = index // 8
+		col = index % 8
+		return row, col

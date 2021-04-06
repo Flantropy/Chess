@@ -17,6 +17,7 @@ class Cell(sprite.Sprite):
 		self.rect.topleft = position_on_display
 		self.piece = None
 		self.selected = False
+		self.index = self.row * 8 + self.col
 
 	def update(self, *args, **kwargs):
 		if self.selected:

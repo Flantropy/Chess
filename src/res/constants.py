@@ -88,5 +88,6 @@ def notation_to_index(row, col):
 
 
 TEST_PIECES = {
-	(4, 4, "w"): Bishop
+	(4, 4, "w"): Rook,
+	(2, 4, "b"): Rook
 }
