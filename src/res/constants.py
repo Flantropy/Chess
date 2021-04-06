@@ -87,7 +87,8 @@ def notation_to_index(row, col):
 	return row * 8 + col
 
 
-TEST_PIECES = {
-	(4, 4, "w"): Rook,
-	(2, 4, "b"): Rook
+TEST_PIECES: (int, int, str) = {
+	(3, 5, "w"): Rook,
+	(3, 4, "w"): Bishop
+	
 }

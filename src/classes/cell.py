@@ -1,6 +1,6 @@
 from pygame import sprite, Surface
 from res.constants import CELL_SIZE
-from res.ultracolors import LIGHT_BLUE_1, LAVENDER_BLUSH_3
+from res.ultracolors import PALE_GREEN_3, PALE_VIOLET_RED_1
 
 
 class Cell(sprite.Sprite):
@@ -18,9 +18,22 @@ class Cell(sprite.Sprite):
 		self.piece = None
 		self.selected = False
 		self.index = self.row * 8 + self.col
-
+		self.selection_rect = Surface(CELL_SIZE)
+		self.selection_rect.fill(PALE_GREEN_3)
+		self.selection_rect.set_alpha(120)
+		self.selection_counter = 0
+	
 	def update(self, *args, **kwargs):
 		if self.selected:
-			self.image.fill(LIGHT_BLUE_1)
+			if self.selection_counter == 0:
+				Surface.blit(self.image, self.selection_rect, (0, 0))
+				self.selection_counter += 1
+		elif self.piece:
+			self.image.fill(PALE_VIOLET_RED_1)
+			Surface.blit(self.image, self.piece.image, (5, 6))
 		else:
+			self.selection_counter = 0
 			self.image.fill(self.color)
+			
+	def clear(self):
+		self.piece = None

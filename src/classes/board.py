@@ -2,6 +2,7 @@ from res.constants import *
 from res.ultracolors import WHITE, MEDIUM_WOOD, PINK_1
 from classes.cell import Cell
 from pieces.base_piece import Piece
+from pygame.display import set_caption
 
 
 class Board:
@@ -11,8 +12,8 @@ class Board:
 		self.grid = []
 		self.create()
 		self.fill()
-		self.update_list_of_moves_for_all_pieces()
 		self.selected_piece = None
+		self.white_to_move = True
 	
 	def create(self):
 		for row in range(BOARD_H):
@@ -32,25 +33,28 @@ class Board:
 			grid_index = notation_to_index(row, col)
 			self.grid[grid_index].piece = piece(
 				color=color,
-				position=(row, col),
-				coordinates=self.grid[grid_index].rect.center
+				pos=grid_index
 			)
-	
-	def update_list_of_moves_for_all_pieces(self):
-		for cell in self.grid:
-			if cell.piece:
-				cell.piece.get_moves_list(self.grid)
 	
 	def clear_selection(self):
 		for cell in self.grid:
 			cell.selected = False
 	
-	def move(self, piece: Piece, end: Cell):
-		end_row, end_col = end.row, end.col
-		end_pos = (end_row, end_col)
-		if end_pos in piece.list_of_moves:
-			print("moveee!!!")
-	
+	def move(self, piece: Piece, end: int):
+		if end in piece.list_of_moves:
+			self.grid[end].piece, self.grid[piece.grid_index].piece, = piece, None
+			self.grid[end].piece.grid_index = end
+			
+			self.clear_selection()
+			self.selected_piece = None
+			# self.white_to_move = not self.white_to_move
+			side = "White" if self.white_to_move else "Black"
+			set_caption(f"Now is {side}'s move")
+		else:
+			print("not in list of moves")
+			self.selected_piece = None
+		
 	def add_selection(self, moves: list):
 		for move in moves:
-			self.grid[move].selected = True
+			if 0 <= move < 64:
+				self.grid[move].selected = True

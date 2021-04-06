@@ -16,40 +16,19 @@ class MainScene:
 		self.clock = pg.time.Clock()
 		self.board = Board(pos=BOARD_TOP_RIGHT, pieces=TEST_PIECES)
 		self.event_handler = EventHandler()
-		self.layer_cells = pg.sprite.Group()
-		self.layer_pieces = pg.sprite.Group()
-		self.layers = [
-			self.layer_cells,
-			self.layer_pieces
-		]
-		self.update_layers()
-	
-	def update(self):
-		for layer in self.layers:
-			layer.update()
-	
-	def render(self):
-		for layer in self.layers:
-			layer.draw(self.display)
-		pg.display.update()
-	
-	def update_layers(self):
-		"""
-		Has to be called before using self.layers
-		"""
+		self.board_layer = pg.sprite.Group()
 		for cell in self.board.grid:
-			self.layer_cells.add(cell)
-			if cell.piece:
-				self.layer_pieces.add(cell.piece)
-	
+			self.board_layer.add(cell)
+		
 	def run(self):
 		while True:
 			#  HANDLE EVENTS
 			self.event_handler.handle_events(self.board)
 			
 			# UPDATE AND RENDER
-			self.update()
-			self.render()
+			self.board_layer.update()
+			self.board_layer.draw(self.display)
+			pg.display.update()
 			
 			# TICK
 			self.clock.tick(FPS)

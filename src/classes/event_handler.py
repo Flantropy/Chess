@@ -1,5 +1,6 @@
 import pygame as pg
 from pygame.locals import *
+from pygame.display import set_caption
 
 
 class EventHandler:
@@ -19,10 +20,15 @@ class EventHandler:
 	
 	@staticmethod
 	def check_mouse(event, board):
+		color_to_move = "w" if board.white_to_move else "b"
 		if event.type == MOUSEBUTTONDOWN:
-			board.clear_selection()
 			x, y = pg.mouse.get_pos()
 			for cell in board.grid:
 				if cell.rect.collidepoint(x, y):
-					if cell.piece:
+					if board.selected_piece:
+						board.move(board.selected_piece, cell.index)
+					elif cell.piece and cell.piece.color == color_to_move:
+						board.selected_piece = cell.piece
+						cell.piece.get_moves_list(board.grid)
 						board.add_selection(cell.piece.list_of_moves)
+						set_caption(f"{board.selected_piece}")
