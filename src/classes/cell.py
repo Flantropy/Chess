@@ -28,12 +28,8 @@ class Cell(sprite.Sprite):
 			if self.selection_counter == 0:
 				Surface.blit(self.image, self.selection_rect, (0, 0))
 				self.selection_counter += 1
-		elif self.piece:
-			self.image.fill(PALE_VIOLET_RED_1)
-			Surface.blit(self.image, self.piece.image, (5, 6))
 		else:
 			self.selection_counter = 0
 			self.image.fill(self.color)
-			
-	def clear(self):
-		self.piece = None
+		if self.piece:
+			Surface.blit(self.image, self.piece.image, (5, 6))

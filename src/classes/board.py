@@ -39,20 +39,20 @@ class Board:
 	def clear_selection(self):
 		for cell in self.grid:
 			cell.selected = False
+			cell.update()
 	
 	def move(self, piece: Piece, end: int):
 		if end in piece.list_of_moves:
 			self.grid[end].piece, self.grid[piece.grid_index].piece, = piece, None
 			self.grid[end].piece.grid_index = end
-			
-			self.clear_selection()
 			self.selected_piece = None
-			# self.white_to_move = not self.white_to_move
+			self.white_to_move = not self.white_to_move
 			side = "White" if self.white_to_move else "Black"
 			set_caption(f"Now is {side}'s move")
 		else:
 			print("not in list of moves")
 			self.selected_piece = None
+		self.clear_selection()
 		
 	def add_selection(self, moves: list):
 		for move in moves:
