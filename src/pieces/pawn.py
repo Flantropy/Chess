@@ -12,6 +12,10 @@ class Pawn(Piece):
 		self.look_up_rank(board)
 		
 	def look_up_rank(self, board):
+		"""
+		REFACTOR!!!
+		Pawn can capture pieces of it's own color
+		"""
 		move1 = board[self.grid_index + self.direction * 8 - 1].index
 		move2 = board[self.grid_index + self.direction * 8].index
 		move3 = board[self.grid_index + self.direction * 8 + 1].index

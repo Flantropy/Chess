@@ -1,4 +1,5 @@
 from pieces.base_piece import Piece
+from itertools import product
 
 
 class Knight(Piece):
@@ -7,9 +8,7 @@ class Knight(Piece):
 	
 	def get_moves_list(self, board):
 		self.list_of_moves = []
-		i = self.grid_index
-		sudo_moves = [i + 10, i + 17, i - 6, i - 15, i - 10, i - 17, i + 6, i + 15]
-		for move in sudo_moves:
-			if 0 > move > 63:
-				sudo_moves.remove(move)
-		self.list_of_moves.extend(sudo_moves)
+		x, y = self.grid_index//8, self.grid_index % 8
+		moves = list(product([x - 1, x + 1], [y - 2, y + 2])) + list(product([x - 2, x + 2], [y - 1, y + 1]))
+		moves = [x*8 + y for x, y in moves if 8 > x >= 0 and 8 > y >= 0]  # and x < 8 and y < 8]
+		self.list_of_moves.extend(moves)

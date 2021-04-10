@@ -32,3 +32,4 @@ class EventHandler:
 						cell.piece.get_moves_list(board.grid)
 						board.add_selection(cell.piece.list_of_moves)
 						set_caption(f"{board.selected_piece}")
+						print(cell.piece)
