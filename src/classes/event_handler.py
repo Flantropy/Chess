@@ -7,19 +7,19 @@ class EventHandler:
 	def __init__(self):
 		pass
 	
-	def handle_events(self, board):
+	def handle_events(self, board) -> None:
 		for event in pg.event.get():
 			self.check_quit(event)
 			self.check_mouse(event, board)
 	
 	@staticmethod
-	def check_quit(event):
+	def check_quit(event) -> None:
 		if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
 			pg.quit()
 			quit()
 	
 	@staticmethod
-	def check_mouse(event, board):
+	def check_mouse(event, board) -> None:
 		color_to_move = "w" if board.white_to_move else "b"
 		if event.type == MOUSEBUTTONDOWN:
 			x, y = pg.mouse.get_pos()
@@ -29,7 +29,7 @@ class EventHandler:
 						board.move(board.selected_piece, cell.index)
 					elif cell.piece and cell.piece.color == color_to_move:
 						board.selected_piece = cell.piece
-						cell.piece.get_moves_list(board.grid)
+						# cell.piece.get_moves_list(board.grid)
 						board.add_selection(cell.piece.list_of_moves)
 						set_caption(f"{board.selected_piece}")
 						print(cell.piece)

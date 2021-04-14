@@ -23,7 +23,7 @@ class Board:
 					Cell(
 						color=color,
 						notation=(row, col),
-						position_on_display=(col * CELL_W, row * CELL_H)  # REVIEW
+						position_on_display=(col * CELL_W, row * CELL_H)
 					)
 				)
 	
@@ -35,11 +35,11 @@ class Board:
 				color=color,
 				pos=grid_index
 			)
+		self.__update_all_moves()
 	
 	def clear_selection(self):
 		for cell in self.grid:
 			cell.selected = False
-			cell.update()
 	
 	def move(self, piece: Piece, end: int):
 		if end in piece.list_of_moves:
@@ -53,8 +53,14 @@ class Board:
 			print("not in list of moves")
 			self.selected_piece = None
 		self.clear_selection()
-		
+		self.__update_all_moves()
+	
 	def add_selection(self, moves: list):
 		for move in moves:
 			if 0 <= move < 64:
 				self.grid[move].selected = True
+	
+	def __update_all_moves(self):
+		for cell in self.grid:
+			if cell.piece:
+				cell.piece.get_moves_list(self.grid)

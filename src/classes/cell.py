@@ -20,7 +20,7 @@ class Cell(sprite.Sprite):
 		self.index = self.row * 8 + self.col
 		self.selection_rect = Surface(CELL_SIZE)
 		self.selection_rect.fill(PALE_GREEN_3)
-		self.selection_rect.set_alpha(190)
+		self.selection_rect.set_alpha(150)
 		self.selection_counter = 0
 	
 	def update(self, *args, **kwargs):
