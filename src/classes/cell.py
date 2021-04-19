@@ -1,6 +1,6 @@
 from pygame import sprite, Surface
 from res.constants import CELL_SIZE
-from res.ultracolors import PALE_GREEN_3, PALE_VIOLET_RED_1
+from res.ultracolors import PALE_GREEN_3
 
 
 class Cell(sprite.Sprite):

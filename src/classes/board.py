@@ -11,7 +11,8 @@ class Board:
 		self.pieces = pieces
 		self.grid = []
 		self.create()
-		self.fill()
+		if self.pieces:
+			self.fill()
 		self.selected_piece = None
 		self.white_to_move = True
 	
