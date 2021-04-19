@@ -2,10 +2,12 @@ from res.constants import *
 from res.ultracolors import WHITE, MEDIUM_WOOD
 from classes.cell import Cell
 from pieces.base_piece import Piece
+from pieces.pawn import Pawn
 from pygame.display import set_caption
 
 
 class Board:
+	# TODO add FEN notation support
 	def __init__(self, pos=(0, 0), pieces=None):
 		self.pos_x, self.pos_y = pos
 		self.pieces = pieces
@@ -29,6 +31,7 @@ class Board:
 				)
 	
 	def fill(self):
+		# TODO change filling with using FEN notation instead of dictionary
 		for pos, piece in self.pieces.items():
 			row, col, color = pos
 			grid_index = row * 8 + col
@@ -38,11 +41,7 @@ class Board:
 			)
 		self.__update_all_moves()
 	
-	def clear_selection(self):
-		for cell in self.grid:
-			cell.selected = False
-	
-	def move(self, piece: Piece, end: int):
+	def move(self, piece: Piece, end: int) -> None:
 		if end in piece.list_of_moves:
 			self.grid[end].piece, self.grid[piece.grid_index].piece, = piece, None
 			self.grid[end].piece.grid_index = end
@@ -56,7 +55,11 @@ class Board:
 		self.clear_selection()
 		self.__update_all_moves()
 	
-	def _add_selection(self, moves: list):
+	def clear_selection(self):
+		for cell in self.grid:
+			cell.selected = False
+	
+	def add_selection(self, moves: list):
 		for move in moves:
 			if 0 <= move < 64:
 				self.grid[move].selected = True
@@ -64,4 +67,7 @@ class Board:
 	def __update_all_moves(self):
 		for cell in self.grid:
 			if cell.piece:
+				if isinstance(cell.piece, Pawn):
+					cell.piece.list_of_moves = cell.piece.pawn_get_moves(self.grid)
+					continue
 				cell.piece.list_of_moves = cell.piece.get_moves_list(cell.piece.row, cell.piece.col, self.grid)
