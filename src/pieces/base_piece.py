@@ -1,4 +1,5 @@
 from pygame import sprite, image, transform
+from typing import Tuple
 
 
 class Piece(sprite.Sprite):
@@ -16,11 +17,12 @@ class Piece(sprite.Sprite):
 	def __str__(self):
 		return f"{self.name}:{self.grid_index} at row={self.row}, col={self.col}"
 	
-	def get_moves_list(self, board: list) -> None:
+	@staticmethod
+	def get_moves_list(row: int, col: int, board: list) -> list:
 		pass
 			
 	@staticmethod
-	def from_index_to_notation(index: int) -> tuple:
+	def from_index_to_notation(index: int) -> Tuple[int, int]:
 		row = index // 8
 		col = index % 8
 		return row, col

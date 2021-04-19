@@ -1,9 +1,9 @@
-from pytest import fixture
+import pytest
 from src.pieces.knight import Knight
 from src.classes.board import Board
 
 
-@fixture
+@pytest.fixture()
 def setup():
 	pieces = {
 		(2, 2, "w"): Knight
@@ -20,5 +20,9 @@ def test_knight_moves(setup):
 	wrong_moves = set(range(64)).difference(valid_moves)
 	for move in valid_moves:
 		assert move in piece.list_of_moves
-	for i in wrong_moves:
-		assert i not in piece.list_of_moves
+	for move in wrong_moves:
+		assert move not in piece.list_of_moves
+		
+		
+def test_knight_captures(setup):
+	assert False

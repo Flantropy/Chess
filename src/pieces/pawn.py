@@ -8,7 +8,6 @@ class Pawn(Piece):
 		self.base_row = 1 if self.color == "b" else 6
 		
 	def get_moves_list(self, board):
-		self.list_of_moves = []
 		self.look_up_rank(board)
 		
 	def look_up_rank(self, board):

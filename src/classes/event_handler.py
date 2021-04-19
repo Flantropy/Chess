@@ -29,7 +29,6 @@ class EventHandler:
 						board.move(board.selected_piece, cell.index)
 					elif cell.piece and cell.piece.color == color_to_move:
 						board.selected_piece = cell.piece
-						# cell.piece.get_moves_list(board.grid)
-						board.add_selection(cell.piece.list_of_moves)
+						board._add_selection(cell.piece.list_of_moves)
 						set_caption(f"{board.selected_piece}")
 						print(cell.piece)
