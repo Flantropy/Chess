@@ -67,7 +67,4 @@ class Board:
 	def __update_all_moves(self):
 		for cell in self.grid:
 			if cell.piece:
-				if isinstance(cell.piece, Pawn):
-					cell.piece.list_of_moves = cell.piece.pawn_get_moves(self.grid)
-					continue
-				cell.piece.list_of_moves = cell.piece.get_moves_list(cell.piece.row, cell.piece.col, self.grid)
+				cell.piece.list_of_moves = cell.piece.get_moves_list(self.grid)

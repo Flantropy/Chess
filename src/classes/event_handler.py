@@ -1,6 +1,7 @@
 import pygame as pg
 from pygame.locals import *
 from pygame.display import set_caption
+from src.classes.board import Board
 
 
 class EventHandler:
@@ -19,7 +20,7 @@ class EventHandler:
 			quit()
 	
 	@staticmethod
-	def check_mouse(event, board) -> None:
+	def check_mouse(event: pg.event.Event, board: Board) -> None:
 		color_to_move = "w" if board.white_to_move else "b"
 		if event.type == MOUSEBUTTONDOWN:
 			x, y = pg.mouse.get_pos()
