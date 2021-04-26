@@ -14,6 +14,8 @@ class Piece(sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.list_of_moves = []
 		self.row, self.col = self.from_index_to_notation(self.grid_index)
+		self.bound_row_max, self.bound_row_min = 7, 0
+		self.bound_col_max, self.bound_col_min = 7, 0
 	
 	def __str__(self):
 		return f"{self.name}:{self.grid_index} at row={self.row}, col={self.col}"
@@ -53,24 +55,3 @@ class Piece(sprite.Sprite):
 	def rook_filter(self, cell: Cell) -> bool:
 		if self.on_col(cell.col) or self.on_row(cell.row):
 			return True
-		
-		
-		
-	# def awesome_filter(self, sudo_moves: List[Cell]) -> List[int]:
-	# 	# TODO add captures support
-	# 	denied = []
-	# 	for move in sudo_moves:
-	# 		if move.piece:
-	# 			if move.row > self.row:
-	# 				for row in range(move.row, 8):
-	# 					denied.append(row * 8 + self.col)
-	# 			elif move.row < self.row:
-	# 				for row in range(move.row):
-	# 					denied.append(row * 8 + self.col)
-	# 			if move.col > self.col:
-	# 				for col in range(move.col, 8):
-	# 					denied.append(col + self.row * 8)
-	# 			elif move.col < self.col:
-	# 				for col in range(move.col):
-	# 					denied.append(col + self.row * 8)
-	# 	return [cell.index for cell in sudo_moves if cell.index not in denied]

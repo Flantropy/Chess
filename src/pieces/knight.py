@@ -10,5 +10,8 @@ class Knight(Piece):
 	def get_moves_list(self, board: list) -> List[int]:
 		x, y = self.row, self.col
 		moves = list(product([x - 1, x + 1], [y - 2, y + 2])) + list(product([x - 2, x + 2], [y - 1, y + 1]))
-		moves = [x*8 + y for x, y in moves if 8 > x >= 0 and 8 > y >= 0]
+		moves = [x * 8 + y for x, y in moves if 8 > x >= 0 and 8 > y >= 0]
+		for move in moves.copy():
+			if board[move].piece and board[move].piece.color == self.color:
+				moves.remove(move)
 		return moves

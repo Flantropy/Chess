@@ -2,19 +2,17 @@ from res.constants import *
 from res.ultracolors import WHITE, MEDIUM_WOOD
 from classes.cell import Cell
 from pieces.base_piece import Piece
-from pieces.pawn import Pawn
 from pygame.display import set_caption
+from classes.fen_parser import parse_fen
 
 
 class Board:
-	# TODO add FEN notation support
-	def __init__(self, pos=(0, 0), pieces=None):
+	def __init__(self, pos=(0, 0), fen="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"):
 		self.pos_x, self.pos_y = pos
-		self.pieces = pieces
+		self.fen = fen
 		self.grid = []
 		self.create()
-		if self.pieces:
-			self.fill()
+		self.fill()
 		self.selected_piece = None
 		self.white_to_move = True
 	
@@ -30,15 +28,9 @@ class Board:
 					)
 				)
 	
-	def fill(self):
-		# TODO change filling with using FEN notation instead of dictionary
-		for pos, piece in self.pieces.items():
-			row, col, color = pos
-			grid_index = row * 8 + col
-			self.grid[grid_index].piece = piece(
-				color=color,
-				pos=grid_index
-			)
+	def fill(self) -> None:
+		for piece in parse_fen(self.fen):
+			self.grid[piece.grid_index].piece = piece
 		self.__update_all_moves()
 	
 	def move(self, piece: Piece, end: int) -> None:

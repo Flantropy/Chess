@@ -6,6 +6,7 @@ from classes.cell import Cell
 class Rook(Piece):
 	def __init__(self, color, pos):
 		super().__init__(name="rook", color=color, pos=pos)
-	
+		self.offsets = [1, -1, 8, -8]
+		
 	def get_moves_list(self, board: List[Cell]) -> List[int]:
 		return super().get_rook_moves(board)
