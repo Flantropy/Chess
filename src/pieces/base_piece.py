@@ -53,5 +53,5 @@ class Piece(sprite.Sprite):
 		return sudo_moves
 	
 	def rook_filter(self, cell: Cell) -> bool:
-		if self.on_col(cell.col) or self.on_row(cell.row):
+		if (self.on_col(cell.col) or self.on_row(cell.row)) and cell.index != self.grid_index:
 			return True

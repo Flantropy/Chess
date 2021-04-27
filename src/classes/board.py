@@ -41,11 +41,11 @@ class Board:
 			self.white_to_move = not self.white_to_move
 			side = "White" if self.white_to_move else "Black"
 			set_caption(f"Now is {side}'s move")
+			self.__update_all_moves()
 		else:
 			print("not in list of moves")
 			self.selected_piece = None
 		self.clear_selection()
-		self.__update_all_moves()
 	
 	def clear_selection(self):
 		for cell in self.grid:

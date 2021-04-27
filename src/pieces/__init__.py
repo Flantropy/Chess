@@ -1,7 +1,9 @@
-from .rook import Rook
-from .bishop import Bishop
+from .base_piece import Piece
+from .pawn import Pawn
 from .knight import Knight
+from .bishop import Bishop
+from .rook import Rook
 from .queen import Queen
 from .king import King
-from .pawn import Pawn
-from .base_piece import Piece
+
+__all__ = ["Piece", "Pawn", "Knight", "Bishop", "Rook", "Queen", "King"]

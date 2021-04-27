@@ -5,20 +5,13 @@ https://www.dcode.fr/fen-chess-notation
 or
 https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 """
-from src import pieces
 from typing import List
+from pieces import Piece, King, Queen, Rook, Bishop, Knight, Pawn
 
-fen_map = {
-	"r": pieces.Rook,
-	"n": pieces.Knight,
-	"b": pieces.Bishop,
-	"q": pieces.Queen,
-	"k": pieces.King,
-	"p": pieces.Pawn
-}
+fen_map = dict(p=Pawn, n=Knight, b=Bishop, r=Rook, q=Queen, k=King)
 
 
-def parse_fen(fen: str) -> List[pieces.Piece]:
+def parse_fen(fen: str) -> List[Piece]:
 	all_pieces = []
 	index = 0
 	fen = fen.split("/")

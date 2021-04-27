@@ -13,7 +13,7 @@ class MainScene:
 		pg.init()
 		self.display = pg.display.set_mode(DISPLAY_SIZE)
 		self.clock = pg.time.Clock()
-		self.board = Board(pos=BOARD_TOP_RIGHT, fen="8/1kbp4/ppp1n3/8/4B1P1/3P1PBP/6K1/8")
+		self.board = Board(pos=BOARD_TOP_RIGHT)  # fen="8/1kbp4/ppp1n3/8/4B1P1/3P1PBP/6K1/8")
 		self.event_handler = EventHandler()
 		self.board_layer = pg.sprite.Group()
 		for cell in self.board.grid:
