@@ -1,11 +1,12 @@
 import pygame as pg
+import chess
 from res.constants import (
 	FPS,
-	DISPLAY_SIZE,
-	BOARD_TOP_RIGHT
+	DISPLAY_SIZE
 )
-from classes.board import Board
-from classes.event_handler import EventHandler
+from event_handler import EventHandler
+from gfx import GFX
+from gui_board import GUIBoard
 
 
 class MainScene:
@@ -13,21 +14,20 @@ class MainScene:
 		pg.init()
 		self.display = pg.display.set_mode(DISPLAY_SIZE)
 		self.clock = pg.time.Clock()
-		self.board = Board(pos=BOARD_TOP_RIGHT)  # fen="8/1kbp4/ppp1n3/8/4B1P1/3P1PBP/6K1/8")
-		self.event_handler = EventHandler()
-		self.board_layer = pg.sprite.Group()
-		for cell in self.board.grid:
-			self.board_layer.add(cell)
-		
-	def run(self):
+		self.board = chess.Board()
+		self.gfx = GFX()
+		self.gui_board = GUIBoard(self.board)
+		self.event_handler = EventHandler(board=self.board, gui_board=self.gui_board)
+	
+	def run(self) -> None:
+		self.init_board()
 		while True:
-			#  HANDLE EVENTS
-			self.event_handler.handle_events(self.board)
-			
-			# UPDATE AND RENDER
-			self.board_layer.update()
-			self.board_layer.draw(self.display)
+			self.event_handler.handle_events()
+			self.gfx.update()
+			self.gfx.render(self.display)
 			pg.display.update()
-			
-			# TICK
 			self.clock.tick(FPS)
+	
+	def init_board(self) -> None:
+		self.gui_board.sprites = GUIBoard.get_cells(chess.STARTING_BOARD_FEN)
+		self.gfx.layer_0.add(self.gui_board.sprites)
