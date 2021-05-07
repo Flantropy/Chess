@@ -29,5 +29,6 @@ class MainScene:
 			self.clock.tick(FPS)
 	
 	def init_board(self) -> None:
-		self.gui_board.sprites = GUIBoard.get_cells(chess.STARTING_BOARD_FEN)
+		self.gui_board.sprites = GUIBoard.get_cells()
+		self.gui_board.update_piece_positions(self.board.board_fen())
 		self.gfx.layer_0.add(self.gui_board.sprites)
