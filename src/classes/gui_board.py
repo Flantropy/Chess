@@ -1,8 +1,7 @@
-from typing import List, Optional
 import chess
-import chess.svg
 import pygame
-from cell import Cell
+from typing import List, Optional
+from classes.cell import Cell
 from res.constants import CELL_SIZE, DIR_IMAGES
 
 
@@ -28,7 +27,7 @@ class GUIBoard:
                 cells.append(Cell(rank=rank, file=file))
         return cells
     
-    def update_piece_positions(self, fen: str):
+    def update_piece_positions(self, fen: str) -> None:
         for cell in self.sprites:
             cell.piece = None
         pieces = dict(p="pawn", b="bishop", r="rook", n="knight", q="queen", k="king")

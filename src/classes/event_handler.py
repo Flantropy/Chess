@@ -1,8 +1,8 @@
 import pygame as pg
 from chess import Board, Move
 from pygame.locals import *
-from cell import Cell
-from src.gui_board import GUIBoard
+from classes.cell import Cell
+from classes.gui_board import GUIBoard
 
 
 class EventHandler:
@@ -37,10 +37,6 @@ class EventHandler:
         move = Move.from_uci(f"{self.gui_board.selected_cell}{to_cell}")
         if self.board.is_legal(move):
             self.board.push(move)
-            print("\n" * 100, self.board)
-        
-        else:
-            print("illegal move")
         self.gui_board.selected_cell.selected = False
         self.gui_board.selected_cell = None
         self.gui_board.update_piece_positions(self.board.board_fen())

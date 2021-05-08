@@ -4,9 +4,9 @@ from res.constants import (
 	FPS,
 	DISPLAY_SIZE
 )
-from event_handler import EventHandler
-from gfx import GFX
-from gui_board import GUIBoard
+from classes.event_handler import EventHandler
+from classes.gfx import GFX
+from classes.gui_board import GUIBoard
 
 
 class MainScene:

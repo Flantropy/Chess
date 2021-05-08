@@ -1,9 +1,7 @@
-from typing import Optional
-
 from chess import FILE_NAMES, RANK_NAMES
 from pygame import Surface
 from pygame.sprite import Sprite
-
+from typing import Optional
 from res.constants import CELL_H, CELL_SIZE, CELL_W
 from res.ultracolors import LIGHT_SEA_GREEN, MEDIUM_WOOD, WHITE
 
