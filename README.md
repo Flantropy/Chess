@@ -7,7 +7,10 @@ It based on [pygame](https://github.com/pygame/pygame),
 and [python-chess](https://github.com/niklasf/python-chess).
 It's not feature-rich yet, but has all you need to play chess easily
 
-## Setup
+## Installation
 - Clone this repo with `git clone`
-- `pip install pygame` and `pip install chess`
+- `cd` to project folder, and install all required libraries by
+```sh
+$ pip install -r doc/requirements.txt
+```
 - Now you should be able to just run the **main.py**
