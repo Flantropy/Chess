@@ -1,6 +1,8 @@
+import chess
 import pygame as pg
 from chess import Board, Move
 from pygame.locals import *
+
 from classes.cell import Cell
 from classes.gui_board import GUIBoard
 
@@ -33,10 +35,17 @@ class EventHandler:
                         cell.selected = True
     
     def make_move(self, to_cell: Cell):
-        # TODO add optional promotion character
-        move = Move.from_uci(f"{self.gui_board.selected_cell}{to_cell}")
+        promotion = "q" if self.is_promotion(to_cell) else ""
+        uci_move = f"{self.gui_board.selected_cell}{to_cell}{promotion}"
+        move = Move.from_uci(uci_move)
         if self.board.is_legal(move):
             self.board.push(move)
         self.gui_board.selected_cell.selected = False
         self.gui_board.selected_cell = None
         self.gui_board.update_piece_positions(self.board.board_fen())
+    
+    def is_promotion(self, to_cell: Cell) -> bool:
+        square = self.gui_board.selected_cell.__str__()
+        if self.board.piece_type_at(chess.parse_square(square)) == chess.PAWN:
+            if to_cell.rank == "8" or to_cell.rank == "1":
+                return True
